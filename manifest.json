@@ -1,0 +1,13 @@
+{
+    "name": "Bionic Reading Extension",
+    "description": "\"Bionic Reading Extension\" boosts reading speed and comprehension through optimized eye movement and focused attention. Customize your experience with highlighting features and a dedicated reading mode.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "bionicReading.js"
+      },
+    "action": {
+    "default_title": "123123",
+    "default_popup": "bionicReading.html"
+    }
+}
