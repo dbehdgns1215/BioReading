@@ -4,10 +4,20 @@
     "version": "1.0",
     "manifest_version": 3,
     "background": {
-        "service_worker": "bionicReading.js"
-      },
+        "service_worker": "bionicReadingScript.js"
+    },
     "action": {
-    "default_title": "123123",
-    "default_popup": "bionicReading.html"
-    }
+        "default_title": "bionicReading",
+        "default_popup": "bionicReading.html"
+    },
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["bionicReading.js"]
+        }
+    ]
 }
