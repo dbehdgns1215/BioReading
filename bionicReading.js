@@ -2,59 +2,53 @@
 document.addEventListener('DOMContentLoaded', function () {
     const myCheckbox = document.getElementById('switch');
 
-    // Load the state of the checkbox when the popup is opened
-    chrome
-        .storage.sync.get('checkboxState', function (data) {
-            myCheckbox.checked = data.checkboxState;
-        });
+    // 팝업이 열릴 때 체크박스의 상태를 로드합니다.
+    chrome.storage.sync.get('checkboxState', function(data) {
+        myCheckbox.checked = data.checkboxState;
+    });
 
     myCheckbox.addEventListener('change', function () {
         if (this.checked) {
             console.log(
-                "Checkbox checked - Sending message:",
+                "체크박스 선택됨 - 메시지 전송:",
                 {message: "activateBionicReading"}
             );
-            chrome.runtime.sendMessage(
-                { message: "activateBionicReading"
-                }, function (response) {
-                    console.log(response);
-                });
-            // Save the state of the checkbox when it is unchecked
-            chrome
-                .storage
-                .sync
-                .set({checkboxState: true});
+            chrome.runtime.sendMessage({
+                message: "activateBionicReading"
+            }, function (response) {
+                console.log(response);
+            });
+            // 체크박스가 선택되었을 때 상태 저장
+            chrome.storage.sync.set({checkboxState: true});
         } else {
             console.log(
-                "Checkbox unchecked - Sending message:",
+                "체크박스 선택 해제됨 - 메시지 전송:",
                 {message: "deactivateBionicReading"}
             );
-            chrome
-                .runtime
-                .sendMessage({
-                    message: "deactivateBionicReading"
-                }, function (response) {
-                    console.log(response);
-                });
-            // Save the state of the checkbox when it is unchecked
+            chrome.runtime.sendMessage({
+                message: "deactivateBionicReading"
+            }, function (response) {
+                console.log(response);
+            });
+            // 체크박스가 해제되었을 때 상태 저장
             chrome.storage.sync.set({checkboxState: false});
         }
     });
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        if (request.message === "toggleBionicReading") {
-            toggleBionicReadingOnWebpage(function (response) {
-                sendResponse(response);
-            });
-        } else if (request.message === "untoggleBionicReading") {
-            untoggleBionicReadingOnWebpage(function (response) {
-                sendResponse(response);
-            });
-        }
-        // 중요: 비동기로 sendResponse 함수가 호출될 것임을 나타내기 위해 true를 반환합니다.
-        return true;
-    });
+    if (request.message === "toggleBionicReading") {
+        toggleBionicReadingOnWebpage(function (response) {
+            sendResponse(response);
+        });
+    } else if (request.message === "untoggleBionicReading") {
+        untoggleBionicReadingOnWebpage(function (response) {
+            sendResponse(response);
+        });
+    }
+    // 중요: 비동기로 sendResponse 함수가 호출될 것임을 나타내기 위해 true를 반환합니다.
+    return true;
+});
 
 function toggleBionicReadingOnWebpage(callback) {
     var textElements = document.querySelectorAll(
