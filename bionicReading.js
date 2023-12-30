@@ -64,6 +64,9 @@ function toggleBionicReadingOnWebpage(callback) {
     );
 
     textElements.forEach(function (element) {
+        if (!element.dataset.originalHtml) {
+            element.dataset.originalHtml = element.innerHTML;
+        };
         applyBionicReadingToElement(element);
     });
 
@@ -80,14 +83,19 @@ function untoggleBionicReadingOnWebpage(callback) {
     );
 
     textElements.forEach(function (element) {
-        element.style.fontWeight = 'normal';
-        element.style.color = 'black'; // 원래 색상으로 복원
+        // Check if the element has original HTML stored
+        if (element.dataset.originalHtml) {
+            // Restore original HTML
+            element.innerHTML = element.dataset.originalHtml;
+            delete element.dataset.originalHtml;
+            element.classList.remove('bionicReadingApplied');
+        }
     });
 
     console.log("Bionic Reading disabled");
 
     if (typeof callback === 'function') {
-        callback({message: "untoggleBionicReading executed"});
+        callback({ message: "untoggleBionicReading executed" });
     }
 }
 
@@ -102,8 +110,16 @@ function processTextNodes(node, callback) {
 }
 
 function applyBionicReadingToElement(element) {
-    var clone = element.cloneNode(true);
+    if (element.classList.contains('bionicReadingApplied')) {
+        return;
+    }
+    
+    // Save original HTML
+    element.dataset.originalHtml = element.innerHTML;
 
+    var clone = element.cloneNode(true);
+    element.classList.add('bionicReadingApplied');
+    
     processTextNodes(clone, function (textNode) {
         var words = textNode.nodeValue.split(/\s+/);
         var newHtml = words.map(word => {
@@ -123,6 +139,7 @@ function applyBionicReadingToElement(element) {
 
     element.parentNode.replaceChild(clone, element);
 }
+
 
 function processTextNodes(node, callback) {
     // 이 노드가 텍스트 노드인 경우
