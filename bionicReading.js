@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load the state of the checkbox when the popup is opened
     chrome
-        .storage
-        .sync
-        .get('checkboxState', function (data) {
+        .storage.sync.get('checkboxState', function (data) {
             myCheckbox.checked = data.checkboxState;
         });
 
@@ -16,10 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 "Checkbox checked - Sending message:",
                 {message: "activateBionicReading"}
             );
-            chrome
-                .runtime
-                .sendMessage({
-                    message: "activateBionicReading"
+            chrome.runtime.sendMessage(
+                { message: "activateBionicReading"
                 }, function (response) {
                     console.log(response);
                 });
@@ -41,18 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log(response);
                 });
             // Save the state of the checkbox when it is unchecked
-            chrome
-                .storage
-                .sync
-                .set({checkboxState: false});
+            chrome.storage.sync.set({checkboxState: false});
         }
     });
 });
 
-chrome
-    .runtime
-    .onMessage
-    .addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.message === "toggleBionicReading") {
             toggleBionicReadingOnWebpage(function (response) {
                 sendResponse(response);
@@ -62,8 +52,7 @@ chrome
                 sendResponse(response);
             });
         }
-        // Important: Return true to indicate that the sendResponse function will be
-        // called asynchronously
+        // 중요: 비동기로 sendResponse 함수가 호출될 것임을 나타내기 위해 true를 반환합니다.
         return true;
     });
 
