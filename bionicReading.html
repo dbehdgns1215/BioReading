@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-<style>
-    .wrapper {
-        width: 300px;
-        height: 100px;
-        text-align: center;
-        margin: 50px auto;
-    }
-    #switch {
-        position: absolute;
-        /* hidden */
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-    }
-    .switch_label {
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        width: 58px;
-        height: 28px;
-        background: #fff;
-        border: 2px solid #daa;
-        border-radius: 20px;
-        transition: 0.2s;
-    }
-    .switch_label:hover {
-        background: #efefef;
-    }
-    .onf_btn {
-        position: absolute;
-        top: 4px;
-        left: 3px;
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 20px;
-        background: #daa;
-        transition: 0.2s;
-    }
-    
-    /* checking style */
-    #switch:checked+.switch_label {
-        background: #c44;
-        border: 2px solid #c44;
-    }
-    
-    #switch:checked+.switch_label:hover {
-        background: #e55;
-    }
-    
-    /* move */
-    #switch:checked+.switch_label .onf_btn {
-        left: 34px;
-        background: #fff;
-        box-shadow: 1px 2px 3px #00000020;
-    }
-</style>
-</head>
+    <head>
+        <style>
+            .wrapper {
+                width: 300px;
+                height: 100px;
+                text-align: center;
+                margin: 50px auto;
+            }
+            #switch {
+                position: absolute;
+                /* hidden */
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+            .switch_label {
+                position: relative;
+                cursor: pointer;
+                display: inline-block;
+                width: 58px;
+                height: 28px;
+                background: #fff;
+                border: 2px solid #daa;
+                border-radius: 20px;
+                transition: 0.2s;
+            }
+            .switch_label:hover {
+                background: #efefef;
+            }
+            .onf_btn {
+                position: absolute;
+                top: 4px;
+                left: 3px;
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border-radius: 20px;
+                background: #daa;
+                transition: 0.2s;
+            }
 
-<body>
-    <h2 style="text-align: center;">Bionic Reading Extension</h2>
+            /* checking style */
+            #switch:checked+.switch_label {
+                background: #c44;
+                border: 2px solid #c44;
+            }
 
-    <div class="wrapper">
-    <input type="checkbox" id="switch">
-    <label for="switch" class="switch_label">
-        <span class="onf_btn"></span>
-    </label>
-    </div>
+            #switch:checked+.switch_label:hover {
+                background: #e55;
+            }
 
-    <script src="bionicReading.js"></script>
-    <script src="bionicReadingScript.js"></script>
+            /* move */
+            #switch:checked+.switch_label .onf_btn {
+                left: 34px;
+                background: #fff;
+                box-shadow: 1px 2px 3px #00000020;
+            }
+        </style>
+    </head>
 
-</body>
+    <body>
+        <h2 style="text-align: center;">Bionic Reading Extension</h2>
+
+        <div class="wrapper">
+            <input type="checkbox" id="switch">
+            <label for="switch" class="switch_label">
+                <span class="onf_btn"></span>
+            </label>
+        </div>
+
+        <script src="bionicReading.js"></script>
+        <script src="bionicReadingScript.js"></script>
+
+    </body>
 
 </html>
